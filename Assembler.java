@@ -19,10 +19,29 @@ public class Assembler
 	public void assemble(String filePath)
 	{
 		List<String> lines = readFileIntoList(filePath);
-		for(String s : lines)
+		String[] result = new String[lines.size()];
+		for(int i = 0; i < lines.size(); i++)
 		{
-			// separate instruction in parts
+			String line = lines.get(i);
+			String[] parts = decodeInstruction(line);
+			if(parts == null) continue;
 		}
+	}
+
+	private String[] decodeInstruction(String i)
+	{
+		if(i.length() == 0) return null;
+		System.out.println("Analyzing->"+i+
+			 " ,length->"+i.length());
+		i = i.replaceAll(" ",",");
+		System.out.println("Line after replaceAll "+i);
+		String[] parts = i.split(",");
+		System.out.print("Instruction parts->"+parts.length);
+		System.out.print(" [");
+		for(String s : parts)
+			System.out.print(s+" ");
+		System.out.println("]");
+		return parts;
 	}
 
 	/**
@@ -54,6 +73,14 @@ public class Assembler
 		_mapInstructions.put("STI", "1011");
 		_mapInstructions.put("STR", "0111");
 		_mapInstructions.put("TRAP", "1111");
+		_mapInstructions.put("R0", "000");
+		_mapInstructions.put("R1", "001");
+		_mapInstructions.put("R2", "010");
+		_mapInstructions.put("R3", "011");
+		_mapInstructions.put("R4", "100");
+		_mapInstructions.put("R5", "101");
+		_mapInstructions.put("R6", "110");
+		_mapInstructions.put("R7", "111");
 	}
 
 	/**
