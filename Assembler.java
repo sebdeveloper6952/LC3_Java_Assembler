@@ -1,7 +1,7 @@
-package org.sebdeveloper6952.assembler;
-
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -18,14 +18,27 @@ public class Assembler
 
 	public void assemble(String filePath)
 	{
-		String[] lines = readFileintoArray(filePath);
+		List<String> lines = readFileIntoList(filePath);
+		for(String s : lines)
+		{
+			// separate instruction in parts
+		}
 	}
 
+	/**
+	* Prepare map holding associations between assembler and binary representations.
+	*/
 	private void initMapInstructions()
 	{
 		_mapInstructions.put("ADD", "0001");
 		_mapInstructions.put("AND", "0101");
 		_mapInstructions.put("BR", "0000");
+		_mapInstructions.put("BRnzp", "0000");
+		_mapInstructions.put("BRn", "0000");
+		_mapInstructions.put("BRz", "0000");
+		_mapInstructions.put("BRp", "0000");
+		_mapInstructions.put("BRnz", "0000");
+		_mapInstructions.put("BRzp", "0000");
 		_mapInstructions.put("JMP", "1100");
 		_mapInstructions.put("JSR", "0100");
 		_mapInstructions.put("JSRR", "0100");
@@ -44,28 +57,26 @@ public class Assembler
 	}
 
 	/**
-	* Read file and return lines in array.
+	* Read file and return lines in List.
 	*/
-	private String[] readFileintoArray(String filePath)
+	private List<String> readFileIntoList(String filePath)
 	{
 		Scanner s = null;
-		String[] lines = null;
-		List<String> linesList = null;
+		List<String> lines = null;
 		try
 		{
-			new Scanner(new BufferedReader(new FileReader(filePath)));
-			list = new ArrayList<>();
+			s = new Scanner(new BufferedReader(new FileReader(filePath)));
+			lines = new ArrayList<>();
 			while(s.hasNextLine())
 			{
-				list.add(s.nextLine());
+				lines.add(s.nextLine());
 			}
-			lines = list.toArray();
 		}
 		catch(Exception e) { System.out.println(e.getMessage()); }
 		finally
 		{
 			if(s != null) s.close();
 		}
-		return null;
+		return lines;
 	}
 }
