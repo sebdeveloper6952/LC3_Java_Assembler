@@ -23,25 +23,19 @@ public class Assembler
 		for(int i = 0; i < lines.size(); i++)
 		{
 			String line = lines.get(i);
-			String[] parts = decodeInstruction(line);
+			String[] parts = getInstructionParts(line);
 			if(parts == null) continue;
 		}
 	}
 
-	private String[] decodeInstruction(String i)
+	/**
+	* Returns an array of strings containing each part of the instruction.
+	* Delimiters used for dividing the instruction are " " | ","
+	*/
+	private String[] getInstructionParts(String i)
 	{
 		if(i.length() == 0) return null;
-		System.out.println("Analyzing->"+i+
-			 " ,length->"+i.length());
-		i = i.replaceAll(" ",",");
-		System.out.println("Line after replaceAll "+i);
-		String[] parts = i.split(",");
-		System.out.print("Instruction parts->"+parts.length);
-		System.out.print(" [");
-		for(String s : parts)
-			System.out.print(s+" ");
-		System.out.println("]");
-		return parts;
+		return i.split("( )|(,)");
 	}
 
 	/**
