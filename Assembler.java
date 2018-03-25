@@ -23,8 +23,11 @@ public class Assembler
 		for(int i = 0; i < lines.size(); i++)
 		{
 			String line = lines.get(i);
-			String[] parts = getInstructionParts(line);
+			// String[] parts = getInstructionParts(line);
+			List<String> parts = Utilities.separateString(line, new String[] {" ", ","});
 			if(parts == null) continue;
+			for(String s : parts) System.out.print(s+"|");
+			System.out.println();
 		}
 	}
 
